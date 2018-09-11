@@ -1,9 +1,10 @@
 parameters:
   buildConfiguration: Release
   buildPlatform: x64
+  name: ''
 
 jobs:
-  - job: Windows ${{buildConfiguration}}
+  - job: ${{ parameters.name }}
 
     pool:
       vmImage: 'VS2017-Win2016'
@@ -20,8 +21,8 @@ jobs:
       timeoutInMinutes: 120
       inputs:
         solution: '$(Build.ArtifactStagingDirectory)/llvm/build/LLVM.sln'
-        platform: '$(buildPlatform)'
-        configuration: '$(buildConfiguration)'
+        platform: ${{ parameters.buildPlatform }}
+        configuration: ${{ parameters.buildConfiguration }}
 
     - task: CMake@1
       inputs:
@@ -31,8 +32,8 @@ jobs:
     - task: VSBuild@1
       inputs:
         solution: '$(Build.ArtifactStagingDirectory)/build/WAVM.sln'
-        platform: '$(buildPlatform)'
-        configuration: '$(buildConfiguration)'
+        platform: ${{ parameters.buildPlatform }}
+        configuration: ${{ parameters.buildConfiguration }}
 
     - script: |
         cd $(Build.ArtifactStagingDirectory)/build
