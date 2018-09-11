@@ -1,9 +1,9 @@
 jobs:
   - template: azure-windows-build-job-template.yml
     parameters:
-      name: Windows-Release
+      name: Windows_Release
       buildConfiguration: Release
   - template: azure-windows-build-job-template.yml
     parameters:
-      name: Windows-Debug
+      name: Windows_Debug
       buildConfiguration: Debug
